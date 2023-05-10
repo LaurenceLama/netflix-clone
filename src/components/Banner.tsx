@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Movie } from "../../typings";
+import { baseUrl } from "netflix/constants/movie";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -19,9 +20,13 @@ console.log(movie)
 
   return (
     <div>
-      <div>{/* <Image /> */}</div>
+      <div>
+        {/* <Image
+          src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
+        /> */}
+      </div>
     </div>
   );
 }
 
-export default Banner;
+export default Banner
