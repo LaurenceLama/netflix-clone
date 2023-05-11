@@ -7,7 +7,7 @@ module.exports = {
         protocol: "https",
         hostname: "image.tmdb.org",
         port: "",
-        pathname: "/LaurenceLama/**",
+        pathname: "/image/upload/**",
       },
     ],
   },
