@@ -24,7 +24,7 @@ function Header() {
 
   return (
     // For the styles of this cloning (in tailwind css), everything responsiveness related, ALL OF THESE starts from organizing through a phone screen instead of PC setting. Basically its mobile responsive FIRST
-    <header className={`${isScrolled && 'bg-blue-300'}`}>
+    <header className={`${isScrolled && 'bg-[#141414]'}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <img
           src="https://rb.gy/ulxxee"

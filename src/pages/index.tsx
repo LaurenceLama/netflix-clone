@@ -52,7 +52,6 @@ interface Props {
 // export default Home
 
 export const getServerSideProps = async () => {
-  
   const [
     netflixOriginals,
     trendingNow,
