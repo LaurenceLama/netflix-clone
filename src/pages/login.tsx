@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import background from ".//background.png";
 
 interface Inputs {
   email: string;
@@ -11,7 +12,7 @@ interface Inputs {
 
 function login() {
   const [login, setLogin] = useState(false);
-  const { signUp, signIn} = useAuth()
+  const { signUp, signIn } = useAuth();
 
   const {
     register,
@@ -19,12 +20,11 @@ function login() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async ({email, password}) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     if (login) {
-      await signIn(email, password)
-    }
-    else {
-      await signUp(email, password)
+      await signIn(email, password);
+    } else {
+      await signUp(email, password);
     }
   };
 
@@ -35,9 +35,10 @@ function login() {
         <link rel="icon" href=".../favicon.ico" />
       </Head>
       <Image
-        src="https://rb.gy/p2hphi"
+        src={background}
         alt="rawr"
         className="-z-10 !hidden opacity-60 sm:!inline object-cover"
+        // sizes="console said this needs sizes but then needs priority afterwards, then still does not work, nt"
         fill
         // brought Image prop back but yeah, no background to be seen, but sign in is dead center at least
       />
