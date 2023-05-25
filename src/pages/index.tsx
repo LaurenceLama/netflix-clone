@@ -40,7 +40,7 @@ export default function Home({
   if (loading) return null;
 
   return (
-    <div className="relative h-screen w-screen bg-gradient-to-b lg:h-[140vh]">
+    <div className={`relative h-screen w-screen bg-gradient-to-b lg:h-[140vh] ${showModal && '!h-screen overflow-hidden'}`}>
       <Header />
       <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
         <Banner netflixOriginals={netflixOriginals} />
