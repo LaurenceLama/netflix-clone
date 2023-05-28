@@ -26,7 +26,6 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-
 /* 
 
 start of designing 
@@ -39,8 +38,8 @@ start of designing
   }
 
   header {
-    @apply fixed top-0 z-50 flex w-full items-center justify-between px-4 py-4 transition-all lg:px-10 lg:py-6
-  } 
+    @apply fixed top-0 z-50 flex w-full items-center justify-between px-4 py-4 transition-all lg:px-10 lg:py-6;
+  }
   /* lg is large breakpoint? idk what dat mean */
 }
 
@@ -55,10 +54,13 @@ start of designing
   }
 
   .input {
-    @apply w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] outline-none focus:bg-[#454545]
+    @apply w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] outline-none focus:bg-[#454545];
   }
   .modalButton {
-    @apply flex h-11 w-11 items-center justify-center rounded-full border-2 border-[gray] bg-[#2a2a2a]/60 transition hover:border-white hover:bg-white/10
+    @apply flex h-11 w-11 items-center justify-center rounded-full border-2 border-[gray] bg-[#2a2a2a]/60 transition hover:border-white hover:bg-white/10;
+  }
+
+  .planBox {
+    @apply relative mx-1.5 flex h-20 bg-[#e50914] w-[calc(100%/3)] cursor-default items-center justify-center rounded-sm font-semibold shadow after:absolute after:top-full after:left-1/2 after:block after:-translate-x-1/2 after:border-8 after:border-b-0 after:border-transparent after:border-t-[#e50914] after:content-[''] md:h-32 lg:mx-8;
   }
 }
-
