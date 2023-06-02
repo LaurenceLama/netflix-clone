@@ -39,13 +39,14 @@ export default function Home({
   documentaries,
   products,
 }: Props) {
+  console.log(products)
   const { loading } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription = false;
 
   if (loading || subscription === null) return null;
 
-  if (!subscription) return <Plans />;
+  if (!subscription) return <Plans products={products} />;
 
   return (
     <div

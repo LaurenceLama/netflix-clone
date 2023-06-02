@@ -1,10 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { Product } from "@stripe/firestore-stripe-payments";
+import Table from "./Table";
 
-function Plans() {
+interface Props {
+  products: Product[];
+}
+
+function Plans({ products }: Props) {
   const { logout } = useAuth();
+  const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]);
 
   return (
     <div>
@@ -52,10 +60,20 @@ function Plans() {
 
         <div className="mt-4 flex flex-col space-y-4">
           <div className="flex w-full items-center justify-end self-end md:w-3/5">
-            
+            {products.map((product) => (
+              <div
+                className={`planBox ${
+                  selectedPlan?.id === product.id ? "opacity-100" : "opacity-60"
+                }`}
+                key={product.id}
+                onClick={() => setSelectedPlan(product)}
+              >
+                {product.name}
+              </div>
+            ))}
           </div>
 
-          {/* <Table products={products} selectedPlan={selectedPlan} /> */}
+          <Table products={products} selectedPlan={selectedPlan} />
 
           <button>subcribe</button>
         </div>
