@@ -1,9 +1,9 @@
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Product } from "@stripe/firestore-stripe-payments";
 
 interface Props {
   products: Product[];
-  selectedPlan: Product | null
+  selectedPlan: Product | null;
 }
 
 function Table({ products, selectedPlan }: Props) {
@@ -21,7 +21,7 @@ function Table({ products, selectedPlan }: Props) {
               }`}
               key={product.id}
             >
-              PHP{product.prices[0].unit_amount! / 100}
+              {product.prices[0].unit_amount! / 100} Petot
             </td>
           ))}
         </tr>
@@ -68,8 +68,10 @@ function Table({ products, selectedPlan }: Props) {
               }`}
               key={product.id}
             >
-              {product.metadata.portability === "true" && (
+              {product.metadata.portability === "true" ? (
                 <CheckIcon className="inline-block h-8 w-8" />
+                ) : (
+                <XMarkIcon className="inline-block h-8 w-8" />
               )}
             </td>
           ))}

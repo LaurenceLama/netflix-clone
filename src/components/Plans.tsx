@@ -12,7 +12,7 @@ interface Props {
 
 function Plans({ products }: Props) {
   const { logout } = useAuth();
-  const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]);
+  const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]); //this sets the default of setSelectedPlan when opening the page, it default picks/highlights the premium (products(2)) which refers to the 3rd position, remember it counts starting from 0
 
   return (
     <div>
