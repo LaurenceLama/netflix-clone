@@ -5,14 +5,24 @@ import useAuth from "../../hooks/useAuth";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { Product } from "@stripe/firestore-stripe-payments";
 import Table from "./Table";
+import Loader from "./Loader";
+import { loadCheckout } from "../../lib/stripe";
 
 interface Props {
   products: Product[];
 }
 
 function Plans({ products }: Props) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]); //this sets the default of setSelectedPlan when opening the page, it default picks/highlights the premium (products(2)) which refers to the 3rd position, remember it counts starting from 0
+  const [isBillingLoading, setBillingLoading] = useState(false);
+
+  const subscribeToPlan = () => {
+    if (!user) return
+
+    loadCheckout(selectedPlan?.prices[0].id!)
+    setBillingLoading(true)
+  }
 
   return (
     <div>
@@ -75,7 +85,19 @@ function Plans({ products }: Props) {
 
           <Table products={products} selectedPlan={selectedPlan} />
 
-          <button>subcribe</button>
+          <button
+            disabled={!selectedPlan || isBillingLoading}
+            className={`mx-auto w-11/12 rounded bg-[#E50914] py-4 text-xl shadow hover:bg-[#f6121dc2] md:w-[420px] ${
+              isBillingLoading && "opacity-60"
+            }`}
+            onClick={subscribeToPlan}
+          >
+            {isBillingLoading ? (
+              <Loader color="dark:fill-gray-300" />
+            ) : (
+              "Subscribe"
+            )}
+          </button>
         </div>
       </main>
     </div>
