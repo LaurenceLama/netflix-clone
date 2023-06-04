@@ -12,6 +12,7 @@ import Plans from "netflix/components/Plans";
 import Head from "next/head";
 import { Product, getProducts } from "@stripe/firestore-stripe-payments";
 import payments from "../../lib/stripe";
+import useSubscription from "../../hooks/useSubscription";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,9 +41,9 @@ export default function Home({
   products,
 }: Props) {
   console.log(products)
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
   const showModal = useRecoilValue(modalState);
-  const subscription = false;
+  const subscription = useSubscription(user);
 
   if (loading || subscription === null) return null;
 
