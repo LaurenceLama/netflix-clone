@@ -8,7 +8,7 @@ import app from "../firebase";
 const payments = getStripePayments(app, {
   productsCollection: "products",
   customersCollection: "customers",
-})
+});
 
 const loadCheckout = async (priceId: string) => {
   await createCheckoutSession(payments, {
@@ -20,5 +20,17 @@ const loadCheckout = async (priceId: string) => {
     .catch((error) => console.log(error.message));
 };
 
-export { loadCheckout };
+const goToBillingPortal = async () => {
+  const instance = getFunctions(app, "us-central1");
+  const functionRef = httpsCallable(
+    instance,
+    "ext-firestore-stripe-payments-createPortalLink"
+  );
+
+  await functionRef({
+    returnUrl: `${window.location.origin}/account`,
+  }).then(({ data }: any) => window.location.assign(data.url)).catch((error) => console.log(error.message));
+};
+
+export { loadCheckout, goToBillingPortal };
 export default payments;
