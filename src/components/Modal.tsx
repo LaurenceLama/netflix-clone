@@ -2,6 +2,7 @@ import MuiModal from "@mui/material/Modal";
 import { useRecoilState } from "recoil";
 import { modalState, movieState } from "../../atoms/modalAtom";
 import {
+  CheckIcon,
   HandThumbUpIcon,
   PlusIcon,
   XMarkIcon,
@@ -17,6 +18,7 @@ function Modal() {
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(false);
+  const [addedToList, setAddedToList] = useState(false);
 
   useEffect(() => {
     if (!movie) return;
@@ -44,6 +46,38 @@ function Modal() {
 
     fetchMovie();
   }, [movie]);
+
+  const handleList = async () => {
+    if (addedToList) {
+      await deleteDoc(
+        doc(db, "customers", user!.uid, "myList", movie?.id.toString()!)
+      );
+
+      toast(
+        `${movie?.title || movie?.original_name} has been removed from My List`,
+        {
+          duration: 8000,
+          style: toastStyle,
+        }
+      );
+    } else {
+      await setDoc(
+        doc(db, "customers", user!.uid, "myList", movie?.id.toString()!),
+        {
+          ...movie,
+        }
+      );
+
+      toast(
+        `${movie?.title || movie?.original_name} has been added to My List.`,
+        {
+          duration: 8000,
+          style: toastStyle,
+        }
+      );
+    }
+  };
+
 
   const handleClose = () => {
     setShowModal(false);
@@ -79,8 +113,12 @@ function Modal() {
                 Play
               </button>
 
-              <button className="modalButton">
-                <PlusIcon className="h-7 w-7" />
+              <button className="modalButton" onClick={handleList}>
+                {addedToList ? (
+                  <CheckIcon className="h-7 w-7" />
+                ) : (
+                  <PlusIcon className="h-7 w-7" />
+                )}
               </button>
 
               <button className="modalButton">
@@ -116,12 +154,12 @@ function Modal() {
               <div className="flex flex-col space-y-3 text-sm">
                 <div>
                   <span className="text-[gray]">Genres:</span>
-                  {genres.map((genre) => genre.name).join(', ')}
+                  {genres.map((genre) => genre.name).join(", ")}
                 </div>
 
                 <div>
                   <span className="text-[gray]">Original language: </span>
-                    {movie?.original_language}
+                  {movie?.original_language}
                 </div>
 
                 <div className="text-[gray]">
