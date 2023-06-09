@@ -110,7 +110,7 @@ function Modal() {
         (snapshot) => setMovies(snapshot.docs)
       );
     }
-  }, [db, movie?.id]);
+  }, [db, movie?.id, user]);
 
   // Check if the movie is already in the user's list
   useEffect(
@@ -118,7 +118,7 @@ function Modal() {
       setAddedToList(
         movies.findIndex((result) => result.data().id === movie?.id) !== -1
       ),
-    [movies]
+    [movies, movie?.id]
   );
 
   return (
