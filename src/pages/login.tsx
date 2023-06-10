@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import background from ".//background.png";
+import logo from "./logo.png";
 
 interface Inputs {
   email: string;
@@ -43,8 +44,8 @@ function Login() {
         // brought Image prop back but yeah, no background to be seen, but sign in is dead center at least
       />
 
-      <img
-        src="https://rb.gy/ulxxee"
+      <Image
+        src={logo}
         alt=""
         className="absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6"
         width={150}

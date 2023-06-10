@@ -6,6 +6,10 @@ import { GetStaticProps } from "next";
 import { Product, getProducts } from "@stripe/firestore-stripe-payments";
 import payments from "../../lib/stripe";
 import Membership from "netflix/components/Membership";
+import Image from "next/image";
+import logo from "./logo.png";
+import icon from "./icon.png";
+import member from "./member.png";
 
 interface Props {
   products: Product[];
@@ -25,19 +29,16 @@ function Account({ products }: Props) {
 
       <header className={`bg-[#141414]`}>
         <Link href="/">
-          <img
-            src="https://rb.gy/ulxxee"
+          <Image
+            src={logo}
+            alt=""
             width={120}
             height={120}
             className="cursor-pointer object-contain"
           />
         </Link>
         <Link href="/account">
-          <img
-            src="https://rb.gy/g1pwyx"
-            alt=""
-            className="cursor-pointer rounded"
-          />
+          <Image src={icon} alt="" className="cursor-pointer rounded" />
         </Link>
       </header>
 
@@ -45,7 +46,7 @@ function Account({ products }: Props) {
         <div className="flex flex-col gap-x-4 md:flex-row md:items-center">
           <h1 className="text-3xl md:text-4xl">Account</h1>
           <div className="-ml-0.5 flex items-center gap-x-1.5">
-            <img src="https://rb.gy/4vfk4r" alt="" className="h-7 w-7" />
+            <Image src={member} alt="rawr" className="h-7 w-7" />
             <p className="text-xs font-semibold text-[#555]">
               Member since {subscription?.created}
             </p>
@@ -81,7 +82,6 @@ function Account({ products }: Props) {
             Sign out of all devices
           </p>
         </div>
-
       </main>
     </div>
   );

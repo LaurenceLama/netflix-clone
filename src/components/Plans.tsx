@@ -7,6 +7,8 @@ import { Product } from "@stripe/firestore-stripe-payments";
 import Table from "./Table";
 import Loader from "./Loader";
 import { loadCheckout } from "../../lib/stripe";
+import Image from "next/image";
+import logo from "./logo.png";
 
 interface Props {
   products: Product[];
@@ -33,8 +35,8 @@ function Plans({ products }: Props) {
 
       <header className="border-b border-white/10 bg-[#141414]">
         <Link href="/">
-          <img
-            src="https://rb.gy/ulxxee"
+          <Image
+            src={logo}
             alt="Netflix"
             width={150}
             height={90}

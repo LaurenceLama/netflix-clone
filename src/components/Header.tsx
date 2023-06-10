@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import Link from "next/link";
 import useAuth from "../../hooks/useAuth";
 import BasicMenu from "./BasicMenu";
+import logo from './logo.png'
+import icon from './icon.png'
+import Image from "next/image";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -28,8 +31,8 @@ function Header() {
     // For the styles of this cloning (in tailwind css), everything responsiveness related, ALL OF THESE starts from organizing through a phone screen instead of PC setting. Basically its mobile responsive FIRST
     <header className={`${isScrolled && 'bg-[#141414]'}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
-        <img
-          src="https://rb.gy/ulxxee"
+        <Image
+          src={logo}
           alt='maybe'
           width={100}
           height={100}
@@ -54,8 +57,8 @@ function Header() {
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="h-6 w-6" />
         <Link href="/account">
-          <img
-            src="https://rb.gy/g1pwyx"
+          <Image
+            src={icon}
             alt=""
             className="cursor-pointer rounded"
           />
