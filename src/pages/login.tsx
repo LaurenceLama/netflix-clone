@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import background from ".//background.png";
-import logo from "./logo.png";
+import background from "../assets/background.png";
+import logo from "../assets/logo.png";
 
 interface Inputs {
   email: string;

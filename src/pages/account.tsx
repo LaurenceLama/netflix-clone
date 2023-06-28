@@ -7,9 +7,9 @@ import { Product, getProducts } from "@stripe/firestore-stripe-payments";
 import payments from "../../lib/stripe";
 import Membership from "netflix/components/Membership";
 import Image from "next/image";
-import logo from "./logo.png";
-import icon from "./icon.png";
-import member from "./member.png";
+import logo from "../assets/logo.png";
+import icon from "../assets/icon.png";
+import member from "../assets/member.png";
 
 interface Props {
   products: Product[];
