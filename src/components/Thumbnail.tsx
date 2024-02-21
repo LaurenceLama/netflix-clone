@@ -1,12 +1,12 @@
-import Image from "next/image"
-import { Movie } from "../../typings"
+import Image from "next/image";
+import { Movie } from "../../typings";
 import { useRecoilState } from "recoil";
 import { modalState, movieState } from "../../atoms/modalAtom";
 import { DocumentData } from "firebase/firestore";
 
 interface Props {
-    // for firebase
-    movie: Movie | DocumentData
+  // for firebase
+  movie: Movie | DocumentData;
 }
 
 function Thumbnail({ movie }: Props) {
@@ -33,4 +33,4 @@ function Thumbnail({ movie }: Props) {
   );
 }
 
-export default Thumbnail
+export default Thumbnail;

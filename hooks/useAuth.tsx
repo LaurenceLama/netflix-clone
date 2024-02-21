@@ -1,7 +1,9 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   User,
 } from "firebase/auth";
@@ -14,6 +16,8 @@ interface IAuth {
   user: User | null;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
+  signInAsGuest: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   error: string | null;
   loading: boolean;
@@ -23,6 +27,8 @@ const AuthContext = createContext<IAuth>({
   user: null,
   signUp: async () => {},
   signIn: async () => {},
+  signInWithGoogle: async () => {},
+  signInAsGuest: async () => {},
   logout: async () => {},
   error: null,
   loading: false,
@@ -85,6 +91,38 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setLoading(false));
   };
 
+  const signInAsGuest = async (email: string, password: string) => {
+    setLoading(true);
+
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+        router.push("/");
+        setLoading(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => setLoading(false));
+  };
+
+  const signInWithGoogle = async () => {
+    setLoading(true);
+
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const userCredential = result.user;
+
+      setUser(userCredential);
+      router.push("/");
+    } catch (error: any) {
+      // Using any to suppress TypeScript error
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
 
@@ -97,7 +135,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const memoedValue = useMemo(
-    () => ({ user, signUp, signIn, loading, error, logout }),
+    () => ({
+      user,
+      signUp,
+      signIn,
+      signInWithGoogle,
+      signInAsGuest,
+      loading,
+      error,
+      logout,
+    }),
     [user, loading, error]
   );
 

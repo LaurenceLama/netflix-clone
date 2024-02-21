@@ -5,7 +5,6 @@ import { RecoilRoot } from 'recoil'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    // HOC (dont know what diz mean)
     <RecoilRoot>
     <AuthProvider>
       <Component {...pageProps} />

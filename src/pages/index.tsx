@@ -29,7 +29,6 @@ interface Props {
   products: Product[];
 }
 
-// const Home = () => {
 export default function Home({
   netflixOriginals,
   trendingNow,
@@ -70,6 +69,7 @@ export default function Home({
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
+          
           {/* My List component */}
           {list.length > 0 && <Row title="My List" movies={list} />}
 
@@ -83,8 +83,6 @@ export default function Home({
     </div>
   );
 }
-
-// export default Home
 
 export const getServerSideProps = async () => {
   const products = await getProducts(payments, {

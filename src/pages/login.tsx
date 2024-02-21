@@ -13,7 +13,7 @@ interface Inputs {
 
 function Login() {
   const [login, setLogin] = useState(false);
-  const { signUp, signIn } = useAuth();
+  const { signUp, signIn, signInWithGoogle, signInAsGuest } = useAuth();
 
   const {
     register,
@@ -29,6 +29,10 @@ function Login() {
     }
   };
 
+  const handleGuestSignIn = async () => {
+    await signInAsGuest("guest12321@gmail.com", "guest12321");
+  }
+
   return (
     <div className="relative flex h-screen w-screen flex-col bg=black md:items-center md:justify-center md:bg-transparent">
       <Head>
@@ -39,9 +43,8 @@ function Login() {
         src={background}
         alt="rawr"
         className="-z-10 !hidden opacity-60 sm:!inline object-cover"
-        // sizes="console said this needs sizes but then needs priority afterwards, then still does not work, nt"
         fill
-        // brought Image prop back but yeah, no background to be seen, but sign in is dead center at least
+        // sizes="console said this needs sizes but then needs priority afterwards, then still does not work, nt"
       />
 
       <Image
@@ -65,7 +68,7 @@ function Login() {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            {errors.email && (
+            {login && errors.email && (
               <p className="p-1 text-[13px] font-light  text-orange-500">
                 Please enter a valid email.
               </p>
@@ -75,10 +78,10 @@ function Login() {
             <input
               type="password"
               className="input"
-              placeholder="password"
+              placeholder="Password"
               {...register("password", { required: true })}
             />
-            {errors.password && (
+            {login && errors.password && (
               <p className="p-1 text-[13px] font-light  text-orange-500">
                 Your password must contain between 4 and 60 characters.
               </p>
@@ -91,6 +94,32 @@ function Login() {
           onClick={() => setLogin(true)}
         >
           Sign in
+        </button>
+
+        <button
+          className="w-full rounded bg-[#e50914] py-3 font-semibold"
+          onClick={handleGuestSignIn}
+        >
+          Sign in as guest
+        </button>
+
+        <button
+          className="relative w-full flex bg-white text-black font-semibold
+                justify-center items-center min-w-[180px] h-10 p-2 mt-4 rounded-md transition 
+               duration-[350ms] hover:bg-[#4285f4] hover:text-white"
+          onClick={() => signInWithGoogle()}
+        >
+          <figure
+            className="flex justify-center items-center w-9 
+                      h-9 absolute left-[5px] rounded-md bg-white"
+          >
+            <img
+              className="h-6 w-6"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBhGqD-THvCbERB_5R1ZrqJ8wl8QGvJwsm2A&usqp=CAU"
+              alt="google.png"
+            />
+          </figure>
+          <div>Sign in with Google</div>
         </button>
 
         <div className="text-[gray]">
