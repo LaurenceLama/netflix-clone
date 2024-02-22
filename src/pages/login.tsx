@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import background from "../assets/background.png";
 import logo from "../assets/logo.png";
+import Loader from "netflix/components/Loader";
 
 interface Inputs {
   email: string;
@@ -14,6 +15,8 @@ interface Inputs {
 function Login() {
   const [login, setLogin] = useState(false);
   const { signUp, signIn, signInWithGoogle, signInAsGuest } = useAuth();
+  const [isSignInLoading, setIsSignInLoading] = useState(false);
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
 
   const {
     register,
@@ -23,15 +26,20 @@ function Login() {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     if (login) {
+      setIsSignInLoading(!isSignInLoading)
       await signIn(email, password);
+      setIsSignInLoading(false)
     } else {
+      setIsSignInLoading(!isSignInLoading)
       await signUp(email, password);
+      setIsSignInLoading(false)
     }
   };
 
   const handleGuestSignIn = async () => {
+    setIsGuestLoading(!isGuestLoading)
     await signInAsGuest("guest12321@gmail.com", "guest12321");
-  }
+  };
 
   return (
     <div className="relative flex h-screen w-screen flex-col bg=black md:items-center md:justify-center md:bg-transparent">
@@ -44,7 +52,6 @@ function Login() {
         alt="rawr"
         className="-z-10 !hidden opacity-60 sm:!inline object-cover"
         fill
-        // sizes="console said this needs sizes but then needs priority afterwards, then still does not work, nt"
       />
 
       <Image
@@ -89,19 +96,40 @@ function Login() {
           </label>
         </div>
 
-        <button
-          className="w-full rounded bg-[#e50914] py-3 font-semibold"
-          onClick={() => setLogin(true)}
-        >
-          Sign in
-        </button>
+        {isSignInLoading ? (
+          <Loader color="dark:fill-[#e50914]" />
+        ) : (
+          <button
+            className="w-full rounded bg-[#e50914] py-3 font-semibold transition 
+          duration-[350ms] hover:bg-[#e50914d3]"
+            onClick={() => setLogin(true)}
+          >
+            Sign in
+          </button>
+        )}
 
-        <button
-          className="w-full rounded bg-[#e50914] py-3 font-semibold"
-          onClick={handleGuestSignIn}
-        >
-          Sign in as guest
-        </button>
+        <div className="text-[gray]">
+          New to Netflix?{" "}
+          <button
+            type="submit"
+            className="text-white hover:underline"
+            onClick={() => setLogin(false)}
+          >
+            Sign up now
+          </button>
+        </div>
+
+        {isGuestLoading ? (
+          <Loader color="dark:fill-[#e50914]" />
+        ) : (
+          <button
+            className="w-full rounded bg-[#e50914] py-3 font-semibold transition 
+          duration-[350ms] hover:bg-[#fff] hover:text-[#e50914]"
+            onClick={handleGuestSignIn}
+          >
+            Sign in as guest
+          </button>
+        )}
 
         <button
           className="relative w-full flex bg-white text-black font-semibold
@@ -121,17 +149,6 @@ function Login() {
           </figure>
           <div>Sign in with Google</div>
         </button>
-
-        <div className="text-[gray]">
-          New to Netflix?{" "}
-          <button
-            type="submit"
-            className="text-white hover:underline"
-            onClick={() => setLogin(false)}
-          >
-            Sign up now
-          </button>
-        </div>
       </form>
     </div>
   );

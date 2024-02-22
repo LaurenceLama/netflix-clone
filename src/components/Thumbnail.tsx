@@ -28,6 +28,8 @@ function Thumbnail({ movie }: Props) {
         alt="thumbnails.jpeg"
         className="rounded-sm object-cover md:rounded"
         fill
+        sizes="100%"
+        priority
       />
     </div>
   );

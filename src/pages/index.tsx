@@ -40,7 +40,6 @@ export default function Home({
   documentaries,
   products,
 }: Props) {
-  console.log(products)
   const { loading, user } = useAuth();
   const showModal = useRecoilValue(modalState);
   const subscription = useSubscription(user);
@@ -54,7 +53,7 @@ export default function Home({
   return (
     <div
       className={`relative h-screen w-screen bg-gradient-to-b lg:h-[140vh] ${
-        showModal && "!h-screen overflow-hidden"
+        showModal && "h-screen overflow-hidden"
       }`}
     >
       <Head>
@@ -69,7 +68,7 @@ export default function Home({
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
-          
+
           {/* My List component */}
           {list.length > 0 && <Row title="My List" movies={list} />}
 

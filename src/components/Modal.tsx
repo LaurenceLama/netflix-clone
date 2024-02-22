@@ -178,7 +178,7 @@ function Modal() {
           <div className="space-y-6 text-lg">
             <div className="flex items-center space-x-2 text-sm">
               <p className="font-semibold text-green-400">
-                {movie!.vote_average * 10}% Match
+                {Math.ceil(movie!.vote_average * 10)}% Match
               </p>
               <p className="font-light">
                 {movie?.release_date || movie?.first_air_date}
@@ -192,7 +192,7 @@ function Modal() {
               <p className="w-5/6">{movie?.overview}</p>
               <div className="flex flex-col space-y-3 text-sm">
                 <div>
-                  <span className="text-[gray]">Genres:</span>
+                  <span className="text-[gray]">Genres:{' '}</span>
                   {genres.map((genre) => genre.name).join(", ")}
                 </div>
 

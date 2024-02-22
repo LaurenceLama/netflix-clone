@@ -30,7 +30,9 @@ function Banner({ netflixOriginals }: Props) {
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
           alt="netflixTrend.jpeg"
           fill
-          className="object-cover"
+          sizes="100%"
+          className="object-cover w-auto h-auto"
+          priority
         />
       </div>
 

@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useSubscription from "../../hooks/useSubscription";
 import { GetStaticProps } from "next";
 import { Product, getProducts } from "@stripe/firestore-stripe-payments";
-import payments from "../../lib/stripe";
+import payments, { goToBillingPortal } from "../../lib/stripe";
 import Membership from "netflix/components/Membership";
 import Image from "next/image";
 import logo from "../assets/logo.png";
@@ -16,9 +16,14 @@ interface Props {
 }
 
 function Account({ products }: Props) {
-  console.log(products);
   const { user, logout } = useAuth();
   const subscription = useSubscription(user);
+
+  const manageSubscription = () => {
+    if (subscription) {
+      goToBillingPortal();
+    }
+  };
 
   return (
     <div>
@@ -67,7 +72,7 @@ function Account({ products }: Props) {
           </div>
           <p
             className="cursor-pointer text-blue-500 hover:underline md:text-right"
-            // onClick={goToBillingPortal}
+            onClick={manageSubscription}
           >
             Change plan
           </p>
